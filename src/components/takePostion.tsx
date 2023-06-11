@@ -82,7 +82,7 @@ export default function TakePosition({ toggleModal }: TakePositionI) {
             <Input type="date" name="startsOn" id="startsOn" />
             <Label htmlFor="endsOn">Lot Ends On</Label>
             <Input type="date" name="endsOn" id="endsOn" placeholder="$100" />
-            <div className="flex p-5 gap-2">
+            <div className="flex p-5 gap-2 mt-10">
               <Button onClick={handleGoBack} color="secondary">
                 Back
               </Button>

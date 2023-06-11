@@ -26,29 +26,31 @@ export default function Modal({ toggleModal }: ModalContentI) {
   return (
     <div
       tabIndex={-1}
-      className="fixed top-0 left-0 right-0 z-50 w-full p-4 bg-gray-700/70 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      className="fixed top-0 left-0 right-0 z-50 w-full p-4 backdrop-blur-lg overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
     >
-      <div className="relative w-full max-w-2xl max-h-full m-auto">
-        <div className="relative space-y-5 bg-gray-900 rounded-lg shadow ">
-          <div className="flex items-start justify-between p-4 rounded-t md:px-16">
-            <h3 className="text-md font-semibold text-zinc-200">
-              Multi-user Lot
-            </h3>
-            <XCircleIcon
-              className="cursor-pointer hover:text-gray-400 text-gray-600"
-              onClick={toggleModal}
-            />
+      <div className="relative w-full md:max-w-xl max-h-full  m-auto">
+        <div className="relative space-y-5 bg-transparent">
+          <div className="bg-gray-900 rounded-lg md:px-10">
+            <div className="flex items-start justify-between p-4 rounded-t">
+              <h3 className="text-md font-semibold text-zinc-200">
+                Multi-user Lot
+              </h3>
+              <XCircleIcon
+                className="cursor-pointer hover:text-gray-400 text-gray-600"
+                onClick={toggleModal}
+              />
+            </div>
+            <Steps />
+            {context ? (
+              <>
+                <Search />
+                <Tabs />
+                <AssetsList context={context} />
+              </>
+            ) : (
+              <TakePostion toggleModal={toggleModal} />
+            )}
           </div>
-          <Steps />
-          {context ? (
-            <>
-              <Search />
-              <Tabs />
-              <AssetsList context={context} />
-            </>
-          ) : (
-            <TakePostion toggleModal={toggleModal} />
-          )}
         </div>
       </div>
     </div>

@@ -48,8 +48,8 @@ export default function Tabs() {
   }
 
   return (
-    <div className="text-sm font-medium text-center text-gray-500 mx-auto">
-      <ul className="flex flex-wrap justify-center">
+    <div className="text-sm font-medium text-center text-gray-500 mx-auto mt-3">
+      <ul className="flex flex-wrap justify-center ">
         {tabsList.map((tabTitle) => {
           return (
             <li className="mr-2">

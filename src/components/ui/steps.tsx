@@ -23,7 +23,7 @@ export default function Steps() {
 
   return (
     <div className="relative">
-      <div className="flex justify-between relative z-10 md:mx-16 mx-11">
+      <div className="flex justify-between relative z-10 md:mx-5 mx-11">
         <span
           className={classNames(
             "h-7 w-7 bg-gray-900 border-[0.5px] border-zinc-700 rounded-full text-center",
@@ -67,8 +67,8 @@ export default function Steps() {
           3
         </span>
       </div>
-      <div className="relative ml-16">
-        <hr className="absolute -top-5 h-4 w-[88%] inset-x-0 bg-gray-800 rounded-full border-none" />
+      <div className="relative ml-5">
+        <hr className="absolute -top-5 h-4 w-[95%] inset-x-0 bg-gray-800 rounded-full border-none" />
       </div>
       <h4 className="text-center m-5 font-semibold">
         {getFullTitle(currentStep)}
