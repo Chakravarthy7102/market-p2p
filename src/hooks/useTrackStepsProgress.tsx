@@ -52,5 +52,6 @@ export default function useTrackStepsProgress(): TrackStepsProgress {
     //whenever the currentStep state changes/updates reset the completedSteps accordingly
     updateCompletedSteps();
   }, [currentStep]);
+  
   return { currentStep, completedSteps, updateCurrentStepStatus };
 }

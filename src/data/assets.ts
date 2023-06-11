@@ -1,4 +1,4 @@
-const assets = [
+const _assets = [
   {
     title: "Ethereum",
     imageUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
@@ -24,4 +24,17 @@ const assets = [
   },
 ];
 
-export default assets;
+type MiddleAsset = (typeof _assets)[0];
+type _Asset = MiddleAsset & { uuid: string };
+
+const mockData = _assets
+  .map((asset): Array<MiddleAsset> => new Array(10).fill({ ...asset }, 0, 10))
+  .map(
+    (assets): Array<_Asset> =>
+      assets.map((asset) => {
+        return { ...asset, uuid: crypto.randomUUID() };
+      })
+  );
+
+export type Asset = (typeof mockData)[0][0];
+export default mockData;

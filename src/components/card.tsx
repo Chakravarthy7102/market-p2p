@@ -2,8 +2,8 @@ import { HelpCircle, RefreshCcw, Users } from "lucide-react";
 
 import useModal from "@/hooks/useModal";
 
-import Chip from "./chip";
-import Button from "./button";
+import Chip from "./ui/chip";
+import Button from "./ui/button";
 import Modal from "./modal";
 
 export default function Card() {

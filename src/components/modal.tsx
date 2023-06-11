@@ -1,19 +1,27 @@
 import { XCircleIcon } from "lucide-react";
-import Steps from "./steps";
-import Tabs from "./tabs";
-import AssetCard from "./assetCard";
-import assets from "@/data/assets";
+import Steps from "./ui/steps";
+import Tabs from "./ui/tabs";
+import AssetCard, { Context } from "./assetCard";
+import mockData from "@/data/assets";
 import { useMemo } from "react";
-import Search from "./search";
+import Search from "./ui/search";
+import useTrackStepsProgress, { STEPS } from "@/hooks/useTrackStepsProgress";
+import useLotStore from "@/zustand/lotStore";
+import Button from "./ui/button";
+import TakePostion from "./takePostion";
 
 interface ModalContentI {
   toggleModal: () => void;
 }
 
 export default function Modal({ toggleModal }: ModalContentI) {
-  const mockData = useMemo(() => {
-    return assets.map((asset) => new Array(10).fill(asset, 0, 10));
-  }, []);
+  const { currentStep } = useTrackStepsProgress();
+
+  const context = useMemo((): Context | undefined => {
+    if (currentStep === STEPS.CHOOSE_ASSET) return "yourAsset";
+    if (currentStep === STEPS.CHOOSE_OPP_ASSET) return "opposingAsset";
+  }, [currentStep]);
+
   return (
     <div
       tabIndex={-1}
@@ -31,21 +39,69 @@ export default function Modal({ toggleModal }: ModalContentI) {
             />
           </div>
           <Steps />
-          <Search />
-          <Tabs />
-          <div className="flex md:gap-8 justify-center h-[calc(100vh-25rem)] overflow-y-scroll">
-            {mockData.map((assets) => {
-              return (
-                <div className="flex flex-col">
-                  {assets.map((asset) => {
-                    return <AssetCard {...asset} />;
-                  })}
-                </div>
-              );
-            })}
-          </div>
+          {context ? (
+            <>
+              <Search />
+              <Tabs />
+              <AssetsList context={context} />
+            </>
+          ) : (
+            <TakePostion />
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+function AssetsList({ context }: { context: Context }) {
+  const selectedAsset = useLotStore((state) => state.lot[context]);
+  const { updateCurrentStepStatus } = useTrackStepsProgress();
+
+  function handleOppAssetNext() {
+    if (!selectedAsset) {
+      alert("Please select a asset to move forward!");
+      return;
+    }
+    updateCurrentStepStatus(STEPS.TAKE_POSITION);
+  }
+
+  function handleYourAssetNext() {
+    if (!selectedAsset) {
+      alert("Please select a asset to move forward!");
+      return;
+    }
+    updateCurrentStepStatus(STEPS.CHOOSE_OPP_ASSET);
+  }
+
+  return (
+    <section>
+      <div className="flex justify-center h-[calc(100vh-25rem)] overflow-y-scroll">
+        {mockData.map((assets, index) => {
+          return (
+            <div key={index} className="flex flex-col">
+              {assets.map((asset) => {
+                return (
+                  <AssetCard
+                    key={asset.uuid}
+                    {...asset}
+                    context={context}
+                    isSelected={asset.uuid === selectedAsset?.uuid}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+      {context === "opposingAsset" ? (
+        <div className="flex p-5 gap-2">
+          <Button color="secondary">Back</Button>
+          <Button onClick={handleOppAssetNext}>Next</Button>
+        </div>
+      ) : (
+        <Button onClick={handleYourAssetNext}>Next</Button>
+      )}
+    </section>
   );
 }

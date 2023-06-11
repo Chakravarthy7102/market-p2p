@@ -1,14 +1,39 @@
+import useLotStore from "@/zustand/lotStore";
+import classNames from "classnames";
 import Image from "next/image";
+
+export type Context = "yourAsset" | "opposingAsset";
 
 export default function AssetCard({
   title,
   imageUrl,
+  context,
+  isSelected,
+  uuid,
 }: {
   title: string;
   imageUrl: string;
+  context: Context;
+  isSelected: boolean;
+  uuid: string;
 }) {
+  const updateLot = useLotStore((store) => store.updateLot);
+
+  function saveSelectedAsset() {
+    updateLot(context, { title, imageUrl, uuid });
+  }
+
   return (
-    <div className="cursor-pointer p-3 flex flex-col items-center gap-2 border border-transparent hover:border hover:border-purple-500/60 hover:bg-gradient-to-b from-violet-600/40 to-indigo-600/50 shrink-0 rounded-lg">
+    <div
+      onClick={saveSelectedAsset}
+      className={classNames(
+        "cursor-pointer p-3 flex flex-col items-center gap-2 border border-transparent hover:border hover:border-purple-500/60 hover:bg-gradient-to-b from-violet-600/40 to-indigo-600/50 shrink-0 rounded-lg m-1",
+        {
+          "border border-purple-500/60 bg-gradient-to-b from-violet-600/40 to-indigo-600/50":
+            isSelected,
+        }
+      )}
+    >
       <Image
         className="bg-white rounded-full"
         src={imageUrl}
