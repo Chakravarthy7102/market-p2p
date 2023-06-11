@@ -33,3 +33,24 @@ body {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(175.25deg, #9e44ff 3.56%, #543eff 103.97%);
 }
+
+/* Custom style for the date input */
+input[type="date"] {
+  /* Styles for the date input itself */
+}
+
+/* Styles for the date input icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.5; 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  /* Styles for the icon when hovered */
+  opacity: 1;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:focus {
+  /* Styles for the icon when focused */
+}

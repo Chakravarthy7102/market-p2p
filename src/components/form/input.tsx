@@ -8,7 +8,7 @@ export default function Input({
     <input
       {...props}
       className={classNames(
-        "bg-gray-900 px-4 py-2 rounded-2xl text-zinc-200 focus:outline-none focus:outline-violet-600/75",
+        "bg-gray-950 py-2 px-3 rounded-2xl text-zinc-200 focus:outline-none focus:outline-violet-600/75",
         className
       )}
     />

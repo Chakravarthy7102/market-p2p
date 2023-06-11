@@ -17,10 +17,15 @@ export default function AssetCard({
   isSelected: boolean;
   uuid: string;
 }) {
-  const updateLot = useLotStore((store) => store.updateLot);
+  const { updateLot, lot, resetLot } = useLotStore((store) => store);
 
   function saveSelectedAsset() {
-    updateLot(context, { title, imageUrl, uuid });
+    const currentSelectedAsset = lot[context];
+    if (currentSelectedAsset) {
+      resetLot(context);
+    } else {
+      updateLot(context, { title, imageUrl, uuid });
+    }
   }
 
   return (

@@ -8,6 +8,7 @@ interface LotState {
     opposingAsset: Asset | null;
   };
   updateLot: (context: Context, data: Asset) => void;
+  resetLot: (context: Context) => void;
 }
 
 const useLotStore = create<LotState>((set) => ({
@@ -27,6 +28,22 @@ const useLotStore = create<LotState>((set) => ({
         return {
           ...state,
           lot: { opposingAsset: data, yourAsset: state.lot.yourAsset },
+        };
+      }
+      return state;
+    }),
+  resetLot: (context: Context, data = null) =>
+    set((state) => {
+      if (context === "yourAsset") {
+        return {
+          ...state,
+          lot: { yourAsset: data, opposingAsset: data },
+        };
+      }
+      if (context === "opposingAsset") {
+        return {
+          ...state,
+          lot: { opposingAsset: data, yourAsset: data },
         };
       }
       return state;

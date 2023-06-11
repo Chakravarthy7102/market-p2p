@@ -1,9 +1,10 @@
-import useTrackStepsProgress, { STEPS } from "@/hooks/useTrackStepsProgress";
+import { STEPS } from "@/hooks/useTrackStepsProgress";
+import useStepsStore from "@/zustand/stepsStore";
 import classNames from "classnames";
 import { useCallback } from "react";
 
 export default function Steps() {
-  const { completedSteps, currentStep } = useTrackStepsProgress();
+  const { completedSteps, currentStep } = useStepsStore();
 
   const getFullTitle = useCallback(
     (currentStep: STEPS) => {

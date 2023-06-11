@@ -2,6 +2,9 @@ import Image from "next/image";
 import useLotStore from "@/zustand/lotStore";
 import Label from "./form/label";
 import Input from "./form/input";
+import Button from "./ui/button";
+import useStepsStore from "@/zustand/stepsStore";
+import { STEPS } from "@/hooks/useTrackStepsProgress";
 
 interface PostionCardI {
   title: string;
@@ -24,8 +27,22 @@ function PostionCard({ imageUrl, title, type }: PostionCardI) {
   );
 }
 
-export default function TakePosition() {
+interface TakePositionI {
+  toggleModal: () => void;
+}
+
+export default function TakePosition({ toggleModal }: TakePositionI) {
   const { opposingAsset, yourAsset } = useLotStore((store) => store.lot);
+  const { updateStepStatus } = useStepsStore();
+
+  function handleCreateLot() {
+    alert("create lot");
+    toggleModal();
+  }
+
+  function handleGoBack() {
+    updateStepStatus(STEPS.CHOOSE_OPP_ASSET);
+  }
 
   return (
     <>
@@ -61,10 +78,16 @@ export default function TakePosition() {
               id="fund"
               placeholder="$100"
             />
-            <Label htmlFor="fund">Lot Starts On</Label>
-            <Input type="date" name="fund" id="fund" placeholder="$100" />
-            <Label htmlFor="fund">Lot Ends On</Label>
-            <Input type="date" name="fund" id="fund" placeholder="$100" />
+            <Label htmlFor="startsOn">Lot Starts On</Label>
+            <Input type="date" name="startsOn" id="startsOn" />
+            <Label htmlFor="endsOn">Lot Ends On</Label>
+            <Input type="date" name="endsOn" id="endsOn" placeholder="$100" />
+            <div className="flex p-5 gap-2">
+              <Button onClick={handleGoBack} color="secondary">
+                Back
+              </Button>
+              <Button onClick={handleCreateLot}>Create Lot</Button>
+            </div>
           </form>
         </div>
       )}
