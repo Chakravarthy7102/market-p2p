@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+::-webkit-scrollbar {
+  background-color: #000;
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(175.25deg, #9e44ff 3.56%, #543eff 103.97%);
+}

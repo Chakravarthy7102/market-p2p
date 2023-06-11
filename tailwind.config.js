@@ -13,6 +13,9 @@ module.exports = {
         "primary-graident":
           "linear-gradient(175.25deg, #9E44FF 3.56%, #543EFF 103.97%)",
       },
+      fontSize: {
+        xxs: "0.55rem",
+      },
     },
   },
   plugins: [],
