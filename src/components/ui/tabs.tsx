@@ -50,9 +50,9 @@ export default function Tabs() {
   return (
     <div className="text-sm font-medium text-center text-gray-500 mx-auto mt-3">
       <ul className="flex flex-wrap justify-center ">
-        {tabsList.map((tabTitle) => {
+        {tabsList.map((tabTitle, index) => {
           return (
-            <li className="mr-2">
+            <li className="mr-2" key={index}>
               <Tab
                 updateCurrentStepStatus={updateCurrentStepStatus}
                 isActive={currentTab === tabTitle}
